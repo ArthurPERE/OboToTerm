@@ -15,19 +15,29 @@ Since _GOfuncR_, although primarly used with the Gene Ontology, works with any o
 `obo_to_term_tables.py` has 2 positional arguments: the _.obo_ file and the target directory for the term tables.  
 Optional `--root_nodes` need to be defined for other ontologies than Gene Ontology.
 
+Optional if you mark a date instead of the _.obo_ file, it will download the file of onthology inside the [release database](http://release.geneontology.org) and put it inside your outdir with the date you indicate.
+
+
 #### Examples
 Assuming you saved `obo_to_term_tables.py` and `obo_to_term_functions.py` in directory `/path/to/script/`  
 
 *  Download and convert Gene Ontology
 
-```
+```sh
 wget http://current.geneontology.org/ontology/go-basic.obo
 /path/to/script/obo_to_term_tables.py go-basic.obo .
 ```
 
+*  Download automatically and convert Gene Ontology
+```sh
+/path/to/script/obo_to_term_tables.py 2021-02-01 .
+```
+
+
+
 *  Download and convert Human Phenotype Ontology
 
-```
+```sh
 wget http://purl.obolibrary.org/obo/hp.obo
 /path/to/script/obo_to_term_tables.py hp.obo . --root_nodes "All"
 ```
