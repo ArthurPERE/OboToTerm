@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
 import argparse
-
 import obo_to_term_functions as T
+import requests
+import os.path
+
 
 
 parser = argparse.ArgumentParser(description='Convert obo to term.txt, term2term.txt and graph_path.txt', usage='./obo_to_term.py po.obo .')
@@ -14,7 +16,19 @@ parser.add_argument("-r", "--root_nodes", default="molecular_function,biological
 
 args = parser.parse_args()
 
-
+if not os.path.isfile(args.obofile):
+	url = "http://release.geneontology.org/" + args.obofile + "/ontology/go-basic.obo"
+	
+	r = requests.get(url)
+	
+	if r.status_code != 200:
+		exit(1)
+	
+	args.obofile = os.path.join(args.outdir, 'go_basic' + args.obofile + '.obo')
+	
+	with open(args.obofile, "w") as f:
+		f.write(r.text)
+	
 ###
 
 # get root nodes
